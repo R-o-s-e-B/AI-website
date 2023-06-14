@@ -59,7 +59,7 @@ def image():
     }
     headers = {
         "content-type": "application/json",
-        "X-RapidAPI-Key": "f6c1b72700mshf5b2e1a79d9adcap10b2c4jsne372d52d527d",
+        "X-RapidAPI-Key": api_key,
         "X-RapidAPI-Host": "openai80.p.rapidapi.com"
     }
 

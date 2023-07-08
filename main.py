@@ -1,6 +1,7 @@
 import requests
 from flask import *
 import os
+import openai
 
 data = None
 image_url = None
@@ -11,7 +12,7 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 api_key = os.environ.get('AI_API_KEY')
-
+openai.api_key = "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"
 @app.route('/')
 def home():
     return render_template('index.html', data=data, image=image_url, prompt=prompt, content=content)
@@ -22,25 +23,37 @@ def ask():
     if request.method == 'POST':
         content = request.form.get('content')
 
-    url = "https://openai80.p.rapidapi.com/chat/completions"
+    completion = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[{
+            "role": "user",
+            "content": f"{content}"
+        }]
+    )
 
-    payload = {
-        "model": "gpt-3.5-turbo",
-        "messages": [
-            {
-                "role": "user",
-                "content": f"{content}!"
-            }
-        ]
-    }
-    headers = {
-        "content-type": "application/json",
-        "X-RapidAPI-Key": api_key,
-        "X-RapidAPI-Host": "openai80.p.rapidapi.com"
-    }
+    data = completion.choices[0].message['content']
+    print(data)
 
-    response = requests.post(url, json=payload, headers=headers)
-    data = response.json()['choices'][0]['message']['content']
+    # url = "https://openai80.p.rapidapi.com/chat/completions"
+    #
+    # payload = {
+    #     "model": "gpt-3.5-turbo",
+    #     "messages": [
+    #         {
+    #             "role": "user",
+    #             "content": f"{content}!"
+    #         }
+    #     ]
+    # }
+    # headers = {
+    #     "content-type": "application/json",
+    #     "X-RapidAPI-Key": api_key,
+    #     "X-RapidAPI-Host": "openai80.p.rapidapi.com"
+    # }
+    #
+    # response = requests.post(url, json=payload, headers=headers)
+    # print(response.json())
+    # data = response.json()['choices'][0]['message']['content']
     return redirect(url_for('home'))
 
 

@@ -6,15 +6,15 @@
     <link rel="stylesheet" href="../static/styles.css">
 </head>
 <body>
-<div style="width:100%; background:#301E67; display:flex;">
-<h1 align="left" style="margin:0px;margin-left:10vh;padding:20px;color:white;font-family:Arial;">AI-TALK</h1>
-     <p style="margin:0px;margin-left:10vh;margin-top:1.5vh;padding:20px;color:white;font-family:Arial">Talk to AI and generate AI art</p>
+<div style="width:100%; background:#301E67; display:flex; opacity:0.7;">
+<h1 align="left" style="margin:0px;margin-left:10vh;padding:20px;color:white;font-family:Arial;">GPT-3</h1>
+     <p style="margin:0px;margin-left:10vh;margin-top:1.5vh;padding:20px;color:white;font-family:Arial">Talk and generate AI art</p>
     </div>
 <div style="display:flex;">
 <div class="ask">
     <p style="margin-left:20px;">What do you wanna ask?</p>
-    <form style="margin-left:20px;" action="/ask" method="POST">
-        <input type="text" class="prompt" placeholder="type here" name="content">
+    <form role="presentation" autocomplete="off" style="margin-left:20px;" action="/ask" method="POST">
+        <input autocomplete="off" type="text" class="prompt" placeholder="type here" name="content">
         <input type="submit" class="send" value="Ask">
     </form>
     {% if content %}
@@ -34,8 +34,8 @@
 <div class="image">
     <div style="display:inline;">
     <p>Enter prompt:</p>
-    <form action="/image" method="POST">
-        <input type="text" class="prompt" placeholder="type here" name="prompt">
+    <form autocomplete="off" action="/image" method="POST">
+        <input autocomplete="off" type="text" class="prompt" placeholder="type here" name="prompt">
         <br><br>
         <input type="submit" class="send" value="Generate art">
     </form>
